@@ -73,7 +73,8 @@ public class HotelController extends AbstractRestHandler {
     @ResponseBody
     Hotel getHotel(@ApiParam(value = "The ID of the hotel.", required = true)
                              @PathVariable("id") Long id,
-                             HttpServletRequest request, HttpServletResponse response) throws Exception {
+                             HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
         Hotel hotel = this.hotelService.getHotel(id);
         checkResourceFound(hotel);
         //todo: http://goo.gl/6iNAkz
@@ -84,26 +85,51 @@ public class HotelController extends AbstractRestHandler {
             method = RequestMethod.PUT,
             consumes = {"application/json", "application/xml"},
             produces = {"application/json", "application/xml"})
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Update a hotel resource.", notes = "You have to provide a valid hotel ID in the URL and in the payload. The ID attribute can not be updated.")
-    public void updateHotel(@ApiParam(value = "The ID of the existing hotel resource.", required = true)
-                                 @PathVariable("id") Long id, @RequestBody Hotel hotel,
-                                 HttpServletRequest request, HttpServletResponse response) {
-        checkResourceFound(this.hotelService.getHotel(id));
-        if (id != hotel.getId()) throw new DataFormatException("ID doesn't match!");
-        this.hotelService.updateHotel(hotel);
+    public @ResponseBody String updateHotel(@ApiParam(value = "The ID of the existing hotel resource.", required = true)
+                                 @PathVariable("id") Long id,
+                                 HttpServletRequest request, HttpServletResponse response)
+    {
+        try {
+            checkResourceFound(this.hotelService.getHotel(id));
+
+            if (id != this.hotelService.getHotel(id).getId())
+            {
+
+                return "false";
+
+            }
+            this.hotelService.updateHotel(this.hotelService.getHotel(id));
+            return "true";
+
+        }
+        catch (Exception e)
+        {
+            return "false";
+        }
     }
 
     //todo: @ApiImplicitParams, @ApiResponses
     @RequestMapping(value = "/{id}",
             method = RequestMethod.DELETE,
             produces = {"application/json", "application/xml"})
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Delete a hotel resource.", notes = "You have to provide a valid hotel ID in the URL. Once deleted the resource can not be recovered.")
-    public void deleteHotel(@ApiParam(value = "The ID of the existing hotel resource.", required = true)
+    @ResponseBody
+    public  String deleteHotel(@ApiParam(value = "The ID of the existing hotel resource.", required = true)
                                  @PathVariable("id") Long id, HttpServletRequest request,
-                                 HttpServletResponse response) {
-        checkResourceFound(this.hotelService.getHotel(id));
-        this.hotelService.deleteHotel(id);
+                                 HttpServletResponse response)
+    {
+        try
+        {
+            checkResourceFound(this.hotelService.getHotel(id));
+            this.hotelService.deleteHotel(id);
+            return "true";
+        }
+        catch (Exception e)
+        {
+            return "false";
+        }
     }
 }

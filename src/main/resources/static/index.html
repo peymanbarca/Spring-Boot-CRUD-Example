@@ -2,45 +2,66 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Hotel Reservation System</title>
     <script type="text/javascript" src="js/jquery-1.5.min.js"></script>
     <script type="text/javascript" src="js/controller.js"></script>
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
 </head>
 <body>
 
+<div id="getall1">
+<div id="getall">
 <p>----------------------</p>
-<p>--|||||------------------</p>
 <br>
 <p>Get list of Available hotels</p>
+<br>
 <button id="b1">GET ALL HOTELS</button>
+<br><br>
+<table id="table" class="hidden">
+    <tr>
+        <th>id</th>
+        <th>city</th>
+        <th>description</th>
+        <th>name</th>
+        <th>rating</th>
+    </tr>
+</table>
 <br>
 <br>
+</div>
+</div>
 
+<div id="get_special">
 <p>----------------------</p>
 <br>
 
 <p>GET a special hotel</p>
 <br>
 <input id="input_id"><span>Enter HOTEL id</span>
-<br>
+    <br><br>
 <button id="b2">Get Hotel</button>
 <br>
 <br>
+</div>
 
+<div id="create1">
+<div id="create">
 <p>----------------------</p>
 <br>
 <p>Fill fields to create a new hotel</p>
 <br>
 
 <input id="hotel_name"><span>Enter hotel name</span>
-<br>
+<br><br>
 <input id="hotel_description"><span>Enter hotel description</span>
-<br>
+    <br><br>
 <input id="hotel_city"><span>Enter hotel city</span>
-<br>
+    <br><br>
 <input id="hotel_rating"><span>Enter hotel rating</span>
-<br>
+    <br><br>
 <button id="b3">Create Hotel</button>
+</div>
+</div>
 
 </body>
 </html>
