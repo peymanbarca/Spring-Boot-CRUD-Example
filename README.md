@@ -46,9 +46,9 @@ Example via postman:
 
 Example via curl:
 
-	curl -H "Content-Type: application/json" -X POST
+	For Example :
 
-	For Example : 
+	curl -H "Content-Type: application/json" -X POST 
 	-d "{"""name""":"""xyz""","""description""":"""d""","""city""":"""mancity""","""rating""" : 1}" http://localhost:8080/hotels
 
 
@@ -59,7 +59,7 @@ note that This is a good bootstrap for whoever not familiar with SpringBoot!!!!
 
 
 Very Thanks TO MR Khoobyari 
-[Sites Using React](https://github.com/khoubyari)
+[spring-boot-rest-example](https://github.com/khoubyari)
 
 
 
