@@ -1,5 +1,6 @@
 package com.peymanbarca.example.api.rest;
 
+import com.peymanbarca.example.dao.jpa.HotelRepository;
 import com.peymanbarca.example.service.HotelService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,6 +27,9 @@ public class HotelController extends AbstractRestHandler {
 
     @Autowired
     private HotelService hotelService;
+
+    @Autowired
+    private HotelRepository hp ;
 
     @RequestMapping(value = "",
             method = RequestMethod.POST,
@@ -86,21 +90,35 @@ public class HotelController extends AbstractRestHandler {
             produces = {"application/json", "application/xml"})
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Update a hotel resource.", notes = "You have to provide a valid hotel ID in the URL and in the payload. The ID attribute can not be updated.")
-    public @ResponseBody String updateHotel(@ApiParam(value = "The ID of the existing hotel resource.", required = true)
+    public @ResponseBody String updateHotel(@RequestBody Hotel hotel,
+                                @ApiParam(value = "The ID of the existing hotel resource.", required = true)
                                  @PathVariable("id") Long id,
                                  HttpServletRequest request, HttpServletResponse response)
     {
-        try {
-            checkResourceFound(this.hotelService.getHotel(id));
 
-            if (id != this.hotelService.getHotel(id).getId())
+        Hotel hotel2 = this.hotelService.getHotel(id);
+        //Hotel hotel2 = this.hp.findOne(id);   in joori ham mishe gereft
+
+        try
+        {
+            checkResourceFound(hotel2);
+
+            if (id != hotel2.getId())
             {
 
-                return "false";
+                return "id does not match";
 
             }
-            this.hotelService.updateHotel(this.hotelService.getHotel(id));
-            return "true";
+            else
+            {
+                hotel2.setName(hotel.getName());
+                hotel2.setDescription(hotel.getDescription());
+                hotel2.setCity(hotel.getCity());
+                hotel2.setRating(hotel.getRating());
+
+                this.hotelService.updateHotel(hotel2);
+                return "true";
+            }
 
         }
         catch (Exception e)

@@ -38,9 +38,10 @@ public class Passenger
 
 
     @Column()
-    private String hotelName;
+    private String hotel_name;
 
-    public Passenger() {
+    public Passenger()
+    {
     }
 
 //    public Passenger(String first_name,String last_name , Date entrance_date, Date exit_date, String HotelName )
@@ -52,22 +53,22 @@ public class Passenger
 //        this.hotelName = HotelName;
 //    }
 
-    public Passenger(String first_name,String last_name,String city ,String HotelName )
+    public Passenger(String first_name,String last_name,String city ,String hotel_name ) // **** asami ke voroodi in and haman field haye json and
     {
         this.first_name = first_name;
         this.last_name = last_name;
         this.city=city;
 //        this.entrance_date= Null;
 //        this.exit_date= Null;
-        this.hotelName = HotelName;
+        this.hotel_name = hotel_name;
     }
 
     public String getHotelName() {
-        return hotelName;
+        return hotel_name;
     }
 
-    public void setHotelName(String hotelName) {
-        hotelName = hotelName;
+    public void setHotelName(String hotel_name) {
+        this.hotel_name = hotel_name;
     }
 
 

@@ -26,6 +26,7 @@ public class PassengerController extends AbstractRestHandler
     @Autowired
     private PassengerService passengerService;
 
+    //////////////////////////////////////////////////////
     @RequestMapping(value = "",
             method = RequestMethod.POST,
             consumes = {"application/json", "application/xml"},
@@ -47,7 +48,7 @@ public class PassengerController extends AbstractRestHandler
         }
     }
 
-
+    //////////////////////////////////////////////////////
 
     @RequestMapping(value = "",
             method = RequestMethod.GET,
@@ -67,6 +68,95 @@ public class PassengerController extends AbstractRestHandler
     {
         return this.passengerService.getAllPassengers(page, size);
     }
+
+    //////////////////////////////////////////////////////
+
+    @RequestMapping(value = "/{id}",
+            method = RequestMethod.GET,
+            produces = {"application/json", "application/xml"})
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Get a single hotel.", notes = "You have to provide a valid hotel ID.")
+    public
+    @ResponseBody
+    Passenger getHotel(@ApiParam(value = "The ID of the hotel.", required = true)
+                   @PathVariable("id") Long id,
+                   HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        Passenger psg = this.passengerService.getPassenger(id);
+        checkResourceFound(psg);
+        //todo: http://goo.gl/6iNAkz
+        return psg;
+    }
+            //////////////////////////////////////////////////////
+    @RequestMapping(value = "/{id}",
+            method = RequestMethod.PUT,
+            consumes = {"application/json", "application/xml"},
+            produces = {"application/json", "application/xml"})
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Update a hotel resource.", notes = "You have to provide a valid hotel ID in the URL and in the payload. The ID attribute can not be updated.")
+    public @ResponseBody String updateHotel(@RequestBody Passenger psg,
+                                                    @ApiParam(value = "The ID of the existing hotel resource.", required = true)
+                                                    @PathVariable("id") Long id,
+                                                    HttpServletRequest request, HttpServletResponse response)
+            {
+
+                Passenger psg2 = this.passengerService.getPassenger(id);
+                //Hotel hotel2 = this.hp.findOne(id);   in joori ham mishe gereft --> HotelController
+
+                try
+                {
+                    checkResourceFound(psg2);
+
+                    if (id != psg2.getId())
+                    {
+
+                        return "id does not match";
+
+                    }
+                    else
+                    {
+                        psg2.setFirst_name(psg.getFirst_name());
+                        psg2.setLast_name(psg.getLast_name());
+                        psg2.setCity(psg.getCity());
+                        psg2.setHotelName(psg.getHotelName());
+
+                        this.passengerService.updatePassenger(psg2);
+                        return "true";
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    return "false";
+                }
+            }
+
+
+
+    ////////////////////////////////////////////////////////////
+    @RequestMapping(value = "/{id}",
+            method = RequestMethod.DELETE,
+            produces = {"application/json", "application/xml"})
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Delete a hotel resource.", notes = "You have to provide a valid hotel ID in the URL. " +
+            "Once deleted the resource can not be recovered.")
+    @ResponseBody
+    public  String deletePassengers(@ApiParam(value = "The ID of the existing hotel resource.", required = true)
+                               @PathVariable("id") Long id, HttpServletRequest request,
+                               HttpServletResponse response)
+    {
+        try
+        {
+            checkResourceFound(this.passengerService.getPassenger(id));
+            this.passengerService.deletePassenger(id);
+            return "true";
+        }
+        catch (Exception e)
+        {
+            return "false";
+        }
+    }
+
 
 
 
