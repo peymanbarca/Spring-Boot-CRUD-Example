@@ -16,6 +16,8 @@ import java.sql.Date;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Passenger
 {
+    //private Hotel hotel;
+
     @Id
     @GeneratedValue()
     private long id;
@@ -40,6 +42,15 @@ public class Passenger
     @Column()
     private String hotel_name;
 
+
+    //@OneToOne(cascade = CascadeType.ALL)
+    @Column()
+    private Integer hotel_id;
+
+
+
+
+
     public Passenger()
     {
     }
@@ -53,7 +64,9 @@ public class Passenger
 //        this.hotelName = HotelName;
 //    }
 
-    public Passenger(String first_name,String last_name,String city ,String hotel_name ) // **** asami ke voroodi in and haman field haye json and
+
+
+    public Passenger(String first_name, String last_name, String city , String hotel_name ) // **** asami ke voroodi in and haman field haye json and
     {
         this.first_name = first_name;
         this.last_name = last_name;
@@ -61,6 +74,38 @@ public class Passenger
 //        this.entrance_date= Null;
 //        this.exit_date= Null;
         this.hotel_name = hotel_name;
+
+    }
+
+    public Passenger(String first_name,String last_name,String city ,Integer hotel_id ) // **** asami ke voroodi in and haman field haye json and
+    {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.city=city;
+//      this.entrance_date= Null;
+//      this.exit_date= Null;
+        this.hotel_id = hotel_id;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+
+//    public Hotel getHotel()
+//    {
+//        return hotel;
+//    }
+//
+//    public void setHotel(Hotel hotel)
+//    {
+//        this.hotel = hotel;
+//    }
+
+
+    public Integer getHotel_id() {
+        return hotel_id;
+    }
+
+    public void setHotel_id(Integer hotel_id) {
+        this.hotel_id = hotel_id;
     }
 
     public String getHotelName() {

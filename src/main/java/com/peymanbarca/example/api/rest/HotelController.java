@@ -1,7 +1,10 @@
 package com.peymanbarca.example.api.rest;
 
 import com.peymanbarca.example.dao.jpa.HotelRepository;
+import com.peymanbarca.example.domain.Passenger;
+import com.peymanbarca.example.domain.PsgId;
 import com.peymanbarca.example.service.HotelService;
+import com.peymanbarca.example.service.PassengerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -29,6 +32,9 @@ public class HotelController extends AbstractRestHandler {
     private HotelService hotelService;
 
     @Autowired
+    private PassengerService psgService;
+
+    @Autowired
     private HotelRepository hp ;
 
     @RequestMapping(value = "",
@@ -38,7 +44,7 @@ public class HotelController extends AbstractRestHandler {
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a hotel resource.", notes = "Returns the URL of the new resource in the Location header.")
     public @ResponseBody String createHotel(@RequestBody Hotel hotel,
-                                 HttpServletRequest request, HttpServletResponse response)
+                                 HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         try
         {
@@ -51,6 +57,37 @@ public class HotelController extends AbstractRestHandler {
             return "false";
         }
     }
+    //////////////////////////////////////////////////////
+
+    @RequestMapping(value = "/addPsg/{id}",
+            method = RequestMethod.POST,
+            consumes = {"application/json", "application/xml"},
+            produces = {"application/json", "application/xml"})
+    @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation(value = "Create a hotel resource.", notes = "Returns the URL of the new resource in the Location header.")
+    public @ResponseBody String addPsg(@ApiParam(value = "The ID of the hotel.", required = true)
+                                           @PathVariable("id") Long id,
+                                            @RequestBody PsgId psg_id_obj,
+                                            HttpServletRequest request, HttpServletResponse response)
+    {
+        try
+        {
+            Hotel hotel = this.hotelService.getHotel(id);
+            checkResourceFound(hotel);
+
+            Integer psg_id=psg_id_obj.getId();
+            hotel.setPsg_id(psg_id);
+            this.hotelService.updateHotel(hotel);  // update it to db
+
+            response.setHeader("Location", request.getRequestURL().append("/").append(hotel.getId()).toString());
+            return "true";
+        }
+        catch (Exception e)
+        {
+            return "false";
+        }
+    }
+    //////////////////////////////////////////////////////
 
     @RequestMapping(value = "",
             method = RequestMethod.GET,
@@ -66,6 +103,37 @@ public class HotelController extends AbstractRestHandler {
                                       HttpServletRequest request, HttpServletResponse response) {
         return this.hotelService.getAllHotels(page, size);
     }
+    ///////////////////////////////////////////////////////
+
+    @RequestMapping(value = "/getPsg/{id}",
+            method = RequestMethod.GET,
+            produces = {"application/json", "application/xml"})
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Get a paginated list of all hotels.", notes = "The list is paginated. You can provide a page number (default 0) and a page size (default 100)")
+    public
+    @ResponseBody
+    Passenger getAllPsg(@ApiParam(value = "The ID of the hotel.", required = true)
+                                @PathVariable("id") Long id,
+                              HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        Hotel hotel = this.hotelService.getHotel(id);
+        checkResourceFound(hotel);
+
+        Integer psgId=hotel.getPsg_id();
+        try
+        {
+            Passenger psg = this.psgService.getPassenger(psgId);
+            checkResourceFound(psg);
+            return psg;
+        }
+        catch (Exception e)
+        {
+            return null;
+
+        }
+    }
+
+    //////////////////////////////////////////////////////
 
     @RequestMapping(value = "/{id}",
             method = RequestMethod.GET,
@@ -83,6 +151,8 @@ public class HotelController extends AbstractRestHandler {
         //todo: http://goo.gl/6iNAkz
         return hotel;
     }
+
+    //////////////////////////////////////////////////////
 
     @RequestMapping(value = "/{id}",
             method = RequestMethod.PUT,
@@ -126,6 +196,7 @@ public class HotelController extends AbstractRestHandler {
             return "false";
         }
     }
+    //////////////////////////////////////////////////////
 
     //todo: @ApiImplicitParams, @ApiResponses
     @RequestMapping(value = "/{id}",

@@ -10,7 +10,10 @@ import javax.xml.bind.annotation.*;
 @Table(name = "hotel")
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Hotel {
+public class Hotel
+{
+
+   // private Passenger psg;
 
     @Id
     @GeneratedValue()
@@ -25,16 +28,29 @@ public class Hotel {
     @Column()
     String city;
 
-    @Column()
-    private int rating;
+    @Column(nullable = true)
+    private Integer psg_id;
 
-    public Hotel() {
+    @Column()
+    private Integer rating;
+
+    public Hotel()
+    {
     }
 
-    public Hotel(String name, String description, int rating) {
+    public Hotel(String name, String description, Integer rating)
+    {
         this.name = name;
         this.description = description;
         this.rating = rating;
+    }
+
+    public Hotel(String name, String description, Integer rating,Integer psd_id)
+    {
+        this.name = name;
+        this.description = description;
+        this.rating = rating;
+        this.psg_id=psd_id;
     }
 
     public long getId() {
@@ -78,6 +94,16 @@ public class Hotel {
         this.city = city;
     }
 
+//    @OneToOne(mappedBy = "hotel")
+//    public Passenger getPsg()
+//    {
+//        return psg;
+//    }
+
+//    public void setPsg(Passenger psg) {
+//        this.psg = psg;
+//    }
+
     @Override
     public String toString() {
         return "Hotel {" +
@@ -87,5 +113,13 @@ public class Hotel {
                 ", city='" + city + '\'' +
                 ", rating=" + rating +
                 '}';
+    }
+
+    public Integer getPsg_id() {
+        return psg_id;
+    }
+
+    public void setPsg_id(int psg_id) {
+        this.psg_id = psg_id;
     }
 }
