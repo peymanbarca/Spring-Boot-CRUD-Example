@@ -9,59 +9,126 @@
 </head>
 <body>
 
-<div id="getall1">
+<h3> Welcome To Hotel Reservation System</h3>
+<img src="img/lasbell_m01.jpg" id="pic1">
+
+<section id="getall1">
 <div id="getall">
 <p>----------------------</p>
 <br>
-<p>Get list of Available hotels</p>
+<h2>Get list of Available hotels</h2>
 <br>
-<button id="b1">GET ALL HOTELS</button>
+<button id="b1">Get All Hotels</button>
 <br><br>
-<table id="table" class="hidden">
+<table id="table" class="hidden" frame=hsides rules=rows>
+
     <tr>
         <th>id</th>
         <th>city</th>
         <th>description</th>
         <th>name</th>
         <th>rating</th>
+        <th>passengerId</th>
     </tr>
 </table>
 <br>
 <br>
 </div>
-</div>
+</section>
 
-<div id="get_special">
+<section id="getall2">
+    <div id="getallPsg">
+        <p>----------------------</p>
+        <br>
+        <h2>Get list of All Submitted Passengers</h2>
+        <br>
+        <button id="b5">Get All Passengers</button>
+        <br><br>
+        <table id="table2"  class="hidden2" frame=hsides rules=rows>
+
+            <tr>
+                <th>first_name</th>
+                <th>last_name</th>
+                <th>city</th>
+            </tr>
+        </table>
+        <br>
+        <br>
+    </div>
+</section>
+
+
+<section id="get_special">
 <p>----------------------</p>
 <br>
 
-<p>GET a special hotel</p>
+<h2>GET a special hotel</h2>
 <br>
 <input id="input_id"><span>Enter HOTEL id</span>
     <br><br>
 <button id="b2">Get Hotel</button>
 <br>
 <br>
-</div>
+</section>
 
-<div id="create1">
+<section id="get_special_psg">
+    <p>----------------------</p>
+    <br>
+
+    <h2>GET a special hotel</h2>
+    <br>
+    <input id="input_id2"><span> Enter HOTEL id </span>
+    <br><br>
+    <button id="b_2"> Get Hotel's Passenger </button>
+    <br>
+    <br>
+</section>
+
+<section id="create1">
 <div id="create">
 <p>----------------------</p>
 <br>
-<p>Fill fields to create a new hotel</p>
+<h2>Fill fields to create a new hotel</h2>
 <br>
 
-<input id="hotel_name"><span>Enter hotel name</span>
+<input id="hotel_name"><span> Enter hotel name</span>
 <br><br>
-<input id="hotel_description"><span>Enter hotel description</span>
+<input id="hotel_description"><span> Enter hotel description</span>
     <br><br>
-<input id="hotel_city"><span>Enter hotel city</span>
+<input id="hotel_city"><span> Enter hotel city</span>
     <br><br>
-<input id="hotel_rating"><span>Enter hotel rating</span>
+<input id="hotel_rating"><span> Enter hotel rating</span>
     <br><br>
 <button id="b3">Create Hotel</button>
 </div>
+    <br>
+    <br>
+    <br>
+</section>
+
+<div id="create2">
+    <div id="createPsg">
+        <p>----------------------</p>
+        <br>
+        <h2>Fill fields to Register a new Passenger</h2>
+        <br>
+
+        <input id="first_name"><span> Enter Passenger First Name</span>
+        <br><br>
+        <input id="last_name"><span> Enter Passenger Last Name</span>
+        <br><br>
+        <input id="psg_city"><span> Enter Passenger city</span>
+        <br><br>
+        <button id="b4">Create Passenger</button>
+        <br>
+        <br>
+        <br><br>
+    </div>
 </div>
+
+
+
+
 
 </body>
 </html>

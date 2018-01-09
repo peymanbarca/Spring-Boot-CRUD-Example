@@ -1,6 +1,27 @@
 .hidden{display:none;}
-#get_special {margin-left: 300px; }
-#getall1 {background: #ffddd1}
+.hidden2{display:none;}
+#get_special {margin-left: 100px; float: left}
+#get_special_psg {margin-right: 300px; float: right}
+#getall1 {background: #ffddd1;}
+#getall2 {background: #56ddd1;}
 #create1 {background: #ffeeee}
+#create {margin-left: 100px; float: right ; margin-right: 200px}
+#create2 {float : right}
+#createPsg {margin-left: 100px ; margin-right: 200px}
 #getall {margin-left: 300px;  }
-#create {margin-left: 300px; }
+#getallPsg {margin-left: 300px;  }
+
+table {
+    border-collapse: separate;
+    border-spacing: 50px 0;
+}
+tr {
+    border: solid;
+    border-width: 2px 0;
+}
+td {
+    padding: 15px 0;
+}
+
+
+#pic1 {margin-left: 100px}
