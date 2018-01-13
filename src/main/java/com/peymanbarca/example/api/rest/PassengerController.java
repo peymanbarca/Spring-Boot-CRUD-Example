@@ -1,6 +1,9 @@
 package com.peymanbarca.example.api.rest;
 
+import com.peymanbarca.example.dao.jpa.PassengerRepository;
 import com.peymanbarca.example.domain.Passenger;
+import com.peymanbarca.example.domain.psgName;
+import com.peymanbarca.example.domain.psgDate;
 import com.peymanbarca.example.service.PassengerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Date;
+import java.util.List;
 
 /**
  * Created by zevik on 1/4/2018.
@@ -25,6 +30,10 @@ public class PassengerController extends AbstractRestHandler
 {
     @Autowired
     private PassengerService passengerService;
+
+    @Autowired
+    private PassengerRepository psg_rp;
+
 
     //////////////////////////////////////////////////////
     @RequestMapping(value = "",
@@ -88,6 +97,65 @@ public class PassengerController extends AbstractRestHandler
         return psg;
     }
             //////////////////////////////////////////////////////
+
+
+
+    @RequestMapping(value = "/city",
+            method = RequestMethod.POST,
+            consumes = {"application/json", "application/xml"},
+            produces = {"application/json", "application/xml"})
+    @ResponseStatus(HttpStatus.OK)
+    //@ApiOperation(value = "Create a passenger resource.", notes = "Returns the URL of the new resource in the Location header.")
+    public @ResponseBody List<Passenger> getPsgByName(@RequestBody psgName psgname,
+                                          HttpServletRequest request, HttpServletResponse response)
+    {
+        try
+        {
+            String s = psgname.getName();
+            System.out.println(s + "*****************************************");
+
+            List<Passenger> psg = this.passengerService.findAll(s);
+
+
+            return psg;
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+    }
+    /////////////////////////////////////////////////////
+
+
+
+    @RequestMapping(value = "/date",
+            method = RequestMethod.POST,
+            consumes = {"application/json", "application/xml"},
+            produces = {"application/json", "application/xml"})
+    @ResponseStatus(HttpStatus.OK)
+    //@ApiOperation(value = "Create a passenger resource.", notes = "Returns the URL of the new resource in the Location header.")
+    public @ResponseBody List<Passenger> getPsgByName(@RequestBody psgDate psgdate,
+                                                      HttpServletRequest request, HttpServletResponse response)
+    {
+        try
+        {
+            Date d = psgdate.getEnter_date();
+            System.out.println(d + "*****************************************");
+
+            List<Passenger> psg = this.passengerService.findAll(d);
+
+
+            return psg;
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+    }
+    /////////////////////////////////////////////////////
+
+
+
     @RequestMapping(value = "/{id}",
             method = RequestMethod.PUT,
             consumes = {"application/json", "application/xml"},

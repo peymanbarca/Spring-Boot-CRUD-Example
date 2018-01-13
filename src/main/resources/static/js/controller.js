@@ -80,6 +80,9 @@ $(document).ready(function ()
         })
     })
 
+
+
+
     $("#b5").click(function () {
         $.get("/passengers",function (data)
         {
@@ -203,29 +206,48 @@ $(document).ready(function ()
         var c = $("#psg_city").val();
         console.log('1')
 
-        var data_send= {first_name: f , last_name: l,psg_city: c}
-        console.log(JSON.stringify(data_send))
+        var current_timestamp2 = new Date();
 
-        $.ajax({
-            type: 'POST',
-            url: '/passengers',
-            contentType : 'application/json',
+        var t = $("#psg_enter").val();
+        console.log(t)
 
-            data: JSON.stringify(data_send),
-            success: function (data) {
-                console.log(data)
-                if (data==true)
-                {
-                    alert('Passenger has been Created Succsesfully! check your DB !')
-                }
-                else
-                {
-                    alert('Created Not Succsesfully , Try again !')
-                }
+        if (t!= undefined)
+        {
+            var data_send = {first_name: f, last_name: l, city: c, enterdate: current_timestamp2}
+            console.log(JSON.stringify(data_send))
+        }
 
-            }
+        else {
+            var data_send = {first_name: f, last_name: l, city: c}
+            console.log(JSON.stringify(data_send))
+        }
 
-        });
+
+
+
+
+
+
+        // $.ajax({
+        //     type: 'POST',
+        //     url: '/passengers',
+        //     contentType : 'application/json',
+        //
+        //     data: JSON.stringify(data_send),
+        //     success: function (data) {
+        //         console.log(data)
+        //         if (data==true)
+        //         {
+        //             alert('Passenger has been Created Succsesfully! check your DB !')
+        //         }
+        //         else
+        //         {
+        //             alert('Created Not Succsesfully , Try again !')
+        //         }
+        //
+        //     }
+        //
+        // });
     })
 
 

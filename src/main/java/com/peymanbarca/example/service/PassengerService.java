@@ -9,7 +9,12 @@ import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.boot.actuate.metrics.GaugeService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
+
+import java.sql.Date;
+import java.util.List;
 
 /**
  * Created by zevik on 1/4/2018.
@@ -58,6 +63,16 @@ public class PassengerService
 //            counterService.increment("Khoubyari.HotelService.getAll.largePayload");
 //        }
         return pageOfPassengers;
+    }
+
+    public List<Passenger> findAll(String s)
+    {
+        return passengerRepository.findBycity(s);
+    }
+
+    public List<Passenger> findAll(Date d)
+    {
+        return passengerRepository.findByenterdate(d);
     }
 
 

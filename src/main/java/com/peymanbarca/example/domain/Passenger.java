@@ -33,10 +33,10 @@ public class Passenger
     String city;
 
     @Column()
-    private Date entrance_date;
+    public Date enterdate;
 
     @Column()
-    private Date exit_date;
+    private Date exitdate;
 
 
     @Column()
@@ -55,14 +55,13 @@ public class Passenger
     {
     }
 
-//    public Passenger(String first_name,String last_name , Date entrance_date, Date exit_date, String HotelName )
-//    {
-//        this.first_name = first_name;
-//        this.last_name = last_name;
-//        this.entrance_date = entrance_date;
-//        this.exit_date = exit_date;
-//        this.hotelName = HotelName;
-//    }
+    public Passenger(String first_name,String last_name , Date entrance_date, Date exit_date )
+    {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.enterdate = entrance_date;
+        this.exitdate = exit_date;
+    }
 
 
 
@@ -150,19 +149,19 @@ public class Passenger
     }
 
     public Date getEntrance_date() {
-        return entrance_date;
+        return enterdate;
     }
 
     public void setEntrance_date(Date entrance_date) {
-        this.entrance_date = entrance_date;
+        this.enterdate = entrance_date;
     }
 
     public Date getExit_date() {
-        return exit_date;
+        return exitdate;
     }
 
     public void setExit_date(Date exit_date) {
-        this.exit_date = exit_date;
+        this.exitdate = exit_date;
     }
 
 
