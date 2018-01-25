@@ -2,6 +2,7 @@ package com.peymanbarca.example.api.rest;
 
 import com.peymanbarca.example.dao.jpa.PassengerRepository;
 import com.peymanbarca.example.domain.Passenger;
+import com.peymanbarca.example.domain.psgIntervalDate;
 import com.peymanbarca.example.domain.psgName;
 import com.peymanbarca.example.domain.psgDate;
 import com.peymanbarca.example.service.PassengerService;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Date;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -66,9 +69,9 @@ public class PassengerController extends AbstractRestHandler
     @ApiOperation(value = "Get a paginated list of all passengers.", notes = "The list is paginated. You can provide a page number (default 0) and a page size (default 100)")
     public
     @ResponseBody
-//    public String foo() {
-//        return "true ";
-//    }
+    //    public String foo() {
+    //        return "true ";
+    //    }
     Page<Passenger> getAllPassengers(@ApiParam(value = "The page number (zero-based)", required = true)
                             @RequestParam(value = "page", required = true, defaultValue = DEFAULT_PAGE_NUM) Integer page,
                                      @ApiParam(value = "Tha page size", required = true)
@@ -99,7 +102,7 @@ public class PassengerController extends AbstractRestHandler
             //////////////////////////////////////////////////////
 
 
-
+    // simple query : find passenger by city
     @RequestMapping(value = "/city",
             method = RequestMethod.POST,
             consumes = {"application/json", "application/xml"},
@@ -127,7 +130,7 @@ public class PassengerController extends AbstractRestHandler
     /////////////////////////////////////////////////////
 
 
-
+    // simple query : find passenger by specific date
     @RequestMapping(value = "/date",
             method = RequestMethod.POST,
             consumes = {"application/json", "application/xml"},
@@ -154,8 +157,39 @@ public class PassengerController extends AbstractRestHandler
     }
     /////////////////////////////////////////////////////
 
+    //  more complex query get passenger by date interval
+    @RequestMapping(value = "/dateInterval",
+            method = RequestMethod.POST,consumes = {"application/json", "application/xml"},
+            produces = {"application/json", "application/xml"})
+    @ResponseStatus(HttpStatus.OK)
+    //@ApiOperation(value = "Create a passenger resource.", notes = "Returns the URL of the new resource in the Location header.")
+    public @ResponseBody List<Passenger> getPsgByDateInterval(@RequestBody psgIntervalDate psgIntervalDate,
+                                                              HttpServletRequest request, HttpServletResponse response)
+    {
+        try
+        {
+            Format formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date d1=psgIntervalDate.getEnter_date();
+            Date d2=psgIntervalDate.getEnd_date();
+
+//            String d1 = formatter.format(psgIntervalDate.getEnter_date());
+//            String d2 = formatter.format(psgIntervalDate.getEnd_date());
+            System.out.println(d1 + "  " + d2 + "*****************************************");
+
+            List<Passenger> psg = this.passengerService.findAllByTimeInterval(d1,d2);
 
 
+            return psg;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+
+    ////////////////////////////////////////////////////////
     @RequestMapping(value = "/{id}",
             method = RequestMethod.PUT,
             consumes = {"application/json", "application/xml"},

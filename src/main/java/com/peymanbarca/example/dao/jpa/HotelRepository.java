@@ -1,7 +1,6 @@
 package com.peymanbarca.example.dao.jpa;
 
 import com.peymanbarca.example.domain.Hotel;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -11,5 +10,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 public interface HotelRepository extends PagingAndSortingRepository<Hotel, Long>
 {
     Hotel findHotelByCity(String city);
-    Page findAll(Pageable pageable);
+    org.springframework.data.domain.Page<Hotel> findAll(Pageable pageable);
 }

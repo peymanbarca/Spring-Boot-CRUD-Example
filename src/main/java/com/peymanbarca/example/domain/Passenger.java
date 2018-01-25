@@ -1,7 +1,7 @@
 package com.peymanbarca.example.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.Null;
+//import javax.validation.constraints.Null;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
