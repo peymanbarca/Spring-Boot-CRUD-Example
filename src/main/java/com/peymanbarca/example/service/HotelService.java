@@ -2,8 +2,9 @@ package com.peymanbarca.example.service;
 
 import com.peymanbarca.example.domain.Hotel;
 import com.peymanbarca.example.dao.jpa.HotelRepository;
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.boot.actuate.metrics.GaugeService;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class HotelService {
 
-    private static final Logger log = LoggerFactory.getLogger(HotelService.class);
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(HotelService.class);
 
     @Autowired
     private HotelRepository hotelRepository;

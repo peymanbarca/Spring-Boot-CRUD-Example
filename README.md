@@ -7,46 +7,63 @@ Simple CRUD App Example with Spring Boot
 
 Endpoints :
 
+	1) Hotel Controller
+
 	/hotels  (get)
 		#return all hotles objects in DB
 
 
-	/hotels/id  (get)
+	/hotels/{id}  (get)
 		#return hotel(id) object in DB
 
-	/hotels (post)
+	/hotels (post a hotel)
 		#create a new hotel
 
-	/hotels/id  (put)
+	/hotels/{id}  (put)
 		#update hotel(id)
 
-	/hotels/id (delete)
+	/hotels/{id} (delete)
 		#delete hotel(id)
 
 -------------------------------
+	2) Passenger Controller
 
 	/passengers  (get)
 		#return all passengers objects in DB
 
 
-	/passengers/id  (get)
+	/passengers/{id}  (get)
 		#return passenger(id) object in DB
 
-	/passengers (post)
+	/passengers (post a passenger)
 		#create a new passenger
 
-	/passengers/id  (put)
+	/passengers/{id]  (put)
 		#update passenger(id)
 
-	/passengers/id (delete)
+	/passengers/{id} (delete)
 		#delete passenger(id)
 
 ---------------------------------------
-	/hotels/getPsg/id  (get)
+	Some additional API in Hotel Conrtroller
+
+	/hotels/getPsg/{id}  (get)
 		#return passenger of hotel(id)
 
-	/hotels/addPsg/id  (post)  --> id: passengerId
+	/hotels/addPsg/{id}  (post an passengerId)  --> id: passengerId
 		# set passenger(passengerID) for hotel(id)
+
+--------------------------------------------
+	Some additional API in Passenger Controller
+	/passengers/city  (post a city name)
+		#return passenger of that city
+
+	/passengers/date  (post a date)
+		#return passenger of that date
+
+	/passengers/dateInterval  (post a date interval with start and end dates)  using @Query()
+		#return passengers exists in this time interval
+
 
 
 
@@ -63,7 +80,7 @@ Example via curl:
 	For Example :
 
 		curl -H "Content-Type: application/json" -X POST 
-		-d "{"""name""":"""xyz""","""description""":"""d""","""city""":"""mancity""","""rating""" : 1}"  http://localhost:8080/hotels
+		-d "{"""name""" : """xyz""" , """description""" : """d""" , """city""" : """mancity""" , """rating""" : 1}"  http://localhost:8080/hotels
 
 Build Project with
 		mvn clean package

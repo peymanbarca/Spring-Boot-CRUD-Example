@@ -76,4 +76,11 @@ public class PassengerService
     }
 
 
+
+    public List<Passenger> findAllByTimeInterval(Date d1,Date d2)
+    {
+        return passengerRepository.findByTimeInterval(d1,d2);
+    }
+
+
 }

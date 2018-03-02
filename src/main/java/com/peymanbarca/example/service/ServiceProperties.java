@@ -3,7 +3,7 @@ package com.peymanbarca.example.service;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.NotNull;
+import org.jetbrains.annotations.NotNull;
 
 /*
  * demonstrates how service-specific properties can be injected
