@@ -65,6 +65,10 @@ Example via curl:
 		curl -H "Content-Type: application/json" -X POST 
 		-d "{"""name""":"""xyz""","""description""":"""d""","""city""":"""mancity""","""rating""" : 1}"  http://localhost:8080/hotels
 
+Build Project with
+		mvn clean package
+	Then Run it with 
+		java -jar -Dspring.profiles.active=test target/spring-boot-rest-example-0.4.0.war
 
 Simple controller with jquery has been applied to serve the data and update view pages...
 You can easily improve this project as conventional sites and use larger and more tables!!
