@@ -68,6 +68,7 @@ Endpoints :
 
 
 Example via postman:
+
 	{
 	"name" : "milad",
 	"description" : "very amazing!!",
@@ -83,8 +84,10 @@ Example via curl:
 		-d "{"""name""" : """xyz""" , """description""" : """d""" , """city""" : """mancity""" , """rating""" : 1}"  http://localhost:8080/hotels
 
 Build Project with
+
 		mvn clean package
-	Then Run it with 
+Then Run it with 
+
 		java -jar -Dspring.profiles.active=test target/spring-boot-rest-example-0.4.0.war
 
 Simple controller with jquery has been applied to serve the data and update view pages...
